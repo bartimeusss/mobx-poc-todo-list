@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { TodoListProvider } from '../context';
-import { TodoList } from './components/todo-list/TodoList';
+import { TodoList } from './todo-list/TodoList';
 import { todoListService } from '../../../ioc-container';
 
 export const TodoListModule = () => (

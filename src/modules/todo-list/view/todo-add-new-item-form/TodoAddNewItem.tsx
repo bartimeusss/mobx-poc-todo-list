@@ -3,8 +3,8 @@ import { Button, Modal, Spin } from 'antd';
 import { observer } from 'mobx-react';
 import { useFormik } from 'formik';
 
-import { useTodoListService } from '../../../context';
-import { TodoItemEntity, TodoStatusEnum } from '../../../../../entities/todo';
+import { useTodoListService } from '../../context';
+import { TodoItemEntity, TodoStatusEnum } from '../../../../entities/todo';
 
 const TodoAddNewItemFormComponent: React.FC = () => {
     const { isAddModalOpen, isAddItemLoading, addItem, openAddingModal, closeAddingModal } = useTodoListService();

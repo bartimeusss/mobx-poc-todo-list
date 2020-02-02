@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react';
-import { TodoListService } from './service/TodoListService';
-import { todoListService } from '../../ioc-container';
 
-export const TodoListContext = createContext<TodoListService>(todoListService);
-export const useTodoListService = (): TodoListService => useContext(TodoListContext);
+import { todoListService } from '../../ioc-container';
+import { ITodoListService } from './service/ITodoListService';
+
+export const TodoListContext = createContext<ITodoListService>(todoListService);
+export const useTodoListService = (): ITodoListService => useContext(TodoListContext);
 export const TodoListProvider = TodoListContext.Provider;

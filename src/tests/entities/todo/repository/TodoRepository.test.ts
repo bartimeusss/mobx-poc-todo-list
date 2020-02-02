@@ -2,17 +2,17 @@ import { IMock } from 'typemoq/Api/IMock';
 import * as TypeMoq from 'typemoq';
 
 import { ITodoRequester } from '../../../../entities/todo/repository/ITodoRequester';
-import { TodoItemEntity, TodoRepository, TodoStatusEnum } from '../../../../entities/todo';
+import { TodoItemEntity, TodoEntityRepository, TodoStatusEnum } from '../../../../entities/todo';
 import { observe } from 'mobx';
 import sinon from 'sinon';
 
 describe('TodoRepository tests', () => {
     let requesterMock: IMock<ITodoRequester>;
-    let repository: TodoRepository;
+    let repository: TodoEntityRepository;
 
     beforeEach(() => {
         requesterMock = TypeMoq.Mock.ofType<ITodoRequester>();
-        repository = new TodoRepository(requesterMock.object);
+        repository = new TodoEntityRepository(requesterMock.object);
     });
 
     describe('todoList', () => {

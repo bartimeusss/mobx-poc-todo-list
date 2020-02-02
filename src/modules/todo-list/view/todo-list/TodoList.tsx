@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Spin } from 'antd';
 import { observer } from 'mobx-react';
 
-import { useTodoListService } from '../../../context';
+import { useTodoListService } from '../../context';
 import { TodoItem } from '../todo-item/TodoItem';
 import { TodoListFilter } from '../todo-list-filter/TodoListFilter';
 import { TodoAddNewItemForm } from '../todo-add-new-item-form/TodoAddNewItem';

@@ -1,65 +1,50 @@
-import { action, observable } from 'mobx';
-import { actionAsync } from 'mobx-utils';
+import { TodoItemEntity, TodoStatusEnum } from '../../../entities/todo';
+import { ITodoListRepository } from './ITodoListRepository';
+import { ITodoListService } from './ITodoListService';
+import { ITodoEntityRepository } from '../../../entities/todo/repository/ITodoEntityRepository';
 
-import { TodoItemEntity, TodoRepository, TodoStatusEnum } from '../../../entities/todo';
-
-export class TodoListService {
-    @observable
-    currentFilterStatus?: TodoStatusEnum;
-
-    @observable
-    isAddModalOpen: boolean = false;
-
-    @observable
-    isListLoading: boolean = false;
-
-    @observable
-    isAddItemLoading: boolean = false;
+export class TodoListService implements ITodoListService {
 
     constructor(
-        private todoRepository: TodoRepository
+        private todoRepository: ITodoEntityRepository,
+        private todoListRepository: ITodoListRepository
     ) {}
 
     get filteredTodoList(): TodoItemEntity[] {
         return this.todoRepository.todoList.filter(it => it.status === (this.currentFilterStatus ?? it.status));
     };
 
-    @action.bound
-    setFilter(newFilterStatus?: TodoStatusEnum) {
-        this.currentFilterStatus = newFilterStatus;
-    };
-
-    @action.bound
-    openAddingModal() {
-        this.isAddModalOpen = true;
+    get currentFilterStatus(): TodoStatusEnum | undefined {
+        return this.todoListRepository.currentFilterStatus
     }
 
-    @action.bound
-    closeAddingModal() {
-        this.isAddModalOpen = false;
+    get isAddModalOpen(): boolean {
+        return this.todoListRepository.isAddModalOpen;
     }
 
-    @actionAsync
+    get isListLoading(): boolean {
+        return this.todoRepository.isListLoading;
+    }
+
+    get isAddItemLoading(): boolean {
+        return this.todoRepository.isAddItemLoading;
+    }
+
+    setFilter = (newFilterStatus?: TodoStatusEnum) =>
+       this.todoListRepository.setFilter(newFilterStatus);
+
+    openAddingModal = () =>
+        this.todoListRepository.openAddingModal();
+
+    closeAddingModal = () =>
+        this.todoListRepository.closeAddingModal();
+
     loadItems = async () => {
-        this.isListLoading = true;
-
-        try {
-            await this.todoRepository.loadItems();
-        } finally {
-            this.isListLoading = false;
-        }
-
+        await this.todoRepository.loadItems();
     };
 
-    @actionAsync
     addItem = async (newItem: TodoItemEntity) => {
-        this.isAddItemLoading = true;
-
-        try {
-            await this.todoRepository.addItem(newItem);
-            this.closeAddingModal();
-        } finally {
-            this.isAddItemLoading = false;
-        }
+        await this.todoRepository.addItem(newItem);
+        this.closeAddingModal();
     };
 }
