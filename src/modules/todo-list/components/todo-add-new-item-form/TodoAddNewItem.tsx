@@ -3,23 +3,25 @@ import { Button, Modal, Spin } from 'antd';
 import { observer } from 'mobx-react';
 import { useFormik } from 'formik';
 
-import { useTodoListService } from '../../../context';
-import { TodoItemEntity, TodoStatusEnum } from '../../../../../entities/todo';
+import { useTodoListStore } from '../../context';
+import { EMPTY_TODO_ITEM } from '../../constants';
+import { TodoItemEntity } from '../../../../entities/todo/TodoItemEntity';
 
 const TodoAddNewItemFormComponent: React.FC = () => {
-    const { isAddModalOpen, isAddItemLoading, addItem, openAddingModal, closeAddingModal } = useTodoListService();
+    const {
+        isAddModalOpen,
+        isAddItemLoading,
+        addItem,
+        openAddingModal,
+        closeAddingModal
+    } = useTodoListStore();
 
     const {
         handleSubmit,
         handleChange,
         values,
     } = useFormik<TodoItemEntity>({
-        initialValues: {
-            id: undefined,
-            name: '',
-            description: '',
-            status: TodoStatusEnum.OPEN
-        },
+        initialValues: EMPTY_TODO_ITEM,
         onSubmit: addItem
     });
 
@@ -65,6 +67,5 @@ const TodoAddNewItemFormComponent: React.FC = () => {
         </>
     )
 };
-
 
 export const TodoAddNewItemForm = observer(TodoAddNewItemFormComponent);

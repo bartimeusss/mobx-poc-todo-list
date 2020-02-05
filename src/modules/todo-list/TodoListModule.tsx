@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { TodoListProvider } from '../context';
+import { TodoListProvider } from './context';
 import { TodoList } from './components/todo-list/TodoList';
-import { todoListService } from '../../../ioc-container';
+import { todoListStore } from './TodoListStore';
 
 export const TodoListModule = () => (
-    <TodoListProvider value={todoListService}>
+    <TodoListProvider value={todoListStore}>
         <TodoList />
     </TodoListProvider>
 );

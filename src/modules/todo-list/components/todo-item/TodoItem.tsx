@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './styles.css';
-import { IPropsTodoItem } from './IPropsTodoItem';
+import { IPropsTodoItem } from './types';
 import { TodoStatus } from '../todo-item-status/TodoStatus';
 
 export const TodoItem: React.FC<IPropsTodoItem> = ({ todoItem }) => (

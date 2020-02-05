@@ -2,11 +2,11 @@ import { Select } from 'antd';
 import React from 'react';
 
 import './styles.css';
-import { TodoStatusEnum } from '../../../../../entities/todo';
-import { useTodoListService } from '../../../context';
+import { useTodoListStore } from '../../context';
+import { TodoStatusEnum } from '../../../../entities/todo/types';
 
 export const TodoListFilter: React.FC = () => {
-    const { setFilter } = useTodoListService();
+    const { setFilter } = useTodoListStore();
 
     return (
         <div className="todo-list_filter">

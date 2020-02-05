@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { Spin } from 'antd';
 import { observer } from 'mobx-react';
 
-import { useTodoListService } from '../../../context';
+import { useTodoListStore } from '../../context';
 import { TodoItem } from '../todo-item/TodoItem';
 import { TodoListFilter } from '../todo-list-filter/TodoListFilter';
 import { TodoAddNewItemForm } from '../todo-add-new-item-form/TodoAddNewItem';
 
 const TodoListComponent: React.FC = () => {
-    const { filteredTodoList, loadItems, isListLoading } = useTodoListService();
+    const { filteredTodoList, loadItems, isListLoading } = useTodoListStore();
 
     useEffect(() => { loadItems() }, []);
 
