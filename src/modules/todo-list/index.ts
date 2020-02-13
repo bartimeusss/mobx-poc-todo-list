@@ -1,1 +1,1 @@
-export { TodoListModule } from './TodoListModule';
+export { TodoListModule } from './view/TodoListModule';

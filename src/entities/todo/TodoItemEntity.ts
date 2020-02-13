@@ -1,13 +1,14 @@
 import { observable } from 'mobx';
-import { TodoStatusEnum } from './types';
+import { ITodoItem } from '../../modules/todo-list/bll/models/ITodoItem';
+import { TodoItemStatus } from '../../modules/todo-list/bll/models/TodoItemStatus';
 
-export class TodoItemEntity {
-    @observable id: string | null;
+export class TodoItemEntity implements ITodoItem {
+    @observable id: string;
     @observable name: string;
     @observable description: string;
-    @observable status: TodoStatusEnum;
+    @observable status: TodoItemStatus;
 
-    constructor(id: string | null, name: string, description: string, status: TodoStatusEnum) {
+    constructor(id: string, name: string, description: string, status: TodoItemStatus) {
         this.id = id;
         this.name = name;
         this.description = description;

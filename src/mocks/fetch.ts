@@ -3,27 +3,27 @@ import uuid from 'uuid/v4';
 import {
     ITodoItemDTOCreateOrUpdate,
     ITodoItemDTOView,
-    TodoStatusEnum
 } from '../entities/todo/types';
+import { TodoItemStatus } from '../modules/todo-list/bll/models/TodoItemStatus';
 
 const mock: ITodoItemDTOView[] = [
     {
         id: uuid(),
         item_name: 'Item1',
         item_description: 'Item1 description',
-        item_status: TodoStatusEnum.OPEN,
+        item_status: TodoItemStatus.OPEN,
     },
     {
         id: uuid(),
         item_name: 'Item2',
         item_description: 'Item2 description',
-        item_status: TodoStatusEnum.IN_PROGRESS,
+        item_status: TodoItemStatus.IN_PROGRESS,
     },
     {
         id: uuid(),
         item_name: 'Item3',
         item_description: 'Item3 description',
-        item_status: TodoStatusEnum.DONE,
+        item_status: TodoItemStatus.DONE,
     },
 ];
 
@@ -40,7 +40,7 @@ export const addItem = (newItem: ITodoItemDTOCreateOrUpdate): ITodoItemDTOView =
     id: uuid(),
     item_name: newItem.item_name,
     item_description: newItem.item_description,
-    item_status: TodoStatusEnum.OPEN
+    item_status: TodoItemStatus.OPEN
 });
 
 export const getResponse = (url: string, body?: any): any => {

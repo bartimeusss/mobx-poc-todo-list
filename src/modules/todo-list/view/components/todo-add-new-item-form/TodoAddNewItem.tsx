@@ -3,18 +3,18 @@ import { Button, Modal, Spin } from 'antd';
 import { observer } from 'mobx-react';
 import { useFormik } from 'formik';
 
-import { useTodoListStore } from '../../context';
 import { EMPTY_TODO_ITEM } from '../../constants';
-import { TodoItemEntity } from '../../../../entities/todo/TodoItemEntity';
+import { TodoItemEntity } from '../../../../../entities/todo/TodoItemEntity';
+import { useAddNewTodoItem } from '../../context';
 
 const TodoAddNewItemFormComponent: React.FC = () => {
     const {
-        isAddModalOpen,
-        isAddItemLoading,
-        addItem,
-        openAddingModal,
-        closeAddingModal
-    } = useTodoListStore();
+        isLoading,
+        addNewItem,
+        isModalOpen,
+        openModal,
+        closeModal
+    } = useAddNewTodoItem();
 
     const {
         handleSubmit,
@@ -22,15 +22,15 @@ const TodoAddNewItemFormComponent: React.FC = () => {
         values,
     } = useFormik<TodoItemEntity>({
         initialValues: EMPTY_TODO_ITEM,
-        onSubmit: addItem
+        onSubmit: addNewItem
     });
 
     return (
         <>
-            <Button onClick={openAddingModal}>Add new item</Button>
+            <Button onClick={openModal}>Add new item</Button>
             <Modal
-                visible={isAddModalOpen}
-                onCancel={closeAddingModal}
+                visible={isModalOpen}
+                onCancel={closeModal}
                 okButtonProps={{
                     htmlType: 'submit',
                     formTarget: 'form'
@@ -58,7 +58,7 @@ const TodoAddNewItemFormComponent: React.FC = () => {
                         />
                     </div>
                     {
-                        isAddItemLoading
+                        isLoading
                             ? (<Spin />)
                             : (<button type="submit">Submit</button>)
                     }

@@ -2,11 +2,11 @@ import { Select } from 'antd';
 import React from 'react';
 
 import './styles.css';
-import { useTodoListStore } from '../../context';
-import { TodoStatusEnum } from '../../../../entities/todo/types';
+import { TodoItemStatus } from '../../../bll/models/TodoItemStatus';
+import { useFilterTodoListByStatus } from '../../context';
 
 export const TodoListFilter: React.FC = () => {
-    const { setFilter } = useTodoListStore();
+    const { setFilter } = useFilterTodoListByStatus();
 
     return (
         <div className="todo-list_filter">
@@ -18,7 +18,7 @@ export const TodoListFilter: React.FC = () => {
             >
                 <Select.Option key={"asdad"} value={undefined}>All</Select.Option>
                 {
-                    Object.keys(TodoStatusEnum).map(status =>
+                    Object.keys(TodoItemStatus).map(status =>
                         <Select.Option key={status} value={status}>{status}</Select.Option>
                     )
                 }
