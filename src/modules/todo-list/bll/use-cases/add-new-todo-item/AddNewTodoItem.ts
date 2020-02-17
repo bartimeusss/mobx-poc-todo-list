@@ -1,36 +1,24 @@
-import { IAddNewTodoItem } from './IAddNewTodoItem';
+import { IAddNewTodoItem } from '../../ports/in/IAddNewTodoItem';
 import { ITodoItem } from '../../models/ITodoItem';
-import { IAddNewTodoItemRepository } from '../../repositories/IAddNewTodoItemRepository';
+import { getModal } from '../../../../../common/modal/getModal';
+import { ADD_NEW_TODO_ITEM } from './AddNewTodoItemConstants';
+import { ITodoListRepository } from '../../ports/out/ITodoListRepository';
+import { IAddTodoItemRequester } from '../../ports/out/IAddTodoItemRequester';
+import { AsyncUseCase } from '../../../../../common/async-operation/AsyncUseCase';
 
-export abstract class AddNewTodoItem implements IAddNewTodoItem {
-    isModalOpen = false;
-    isLoading = false;
-    error: string | undefined = undefined;
-
+export class AddNewTodoItem extends AsyncUseCase implements IAddNewTodoItem {
     constructor(
-        private repository: IAddNewTodoItemRepository
-    ) {}
+        private repository: ITodoListRepository,
+        private requester: IAddTodoItemRequester
+    ) {
+        super();
+    }
 
-    abstract addNewItem(newTodoItem: ITodoItem): void;
-
-    *addNewItemImpl(newItem: ITodoItem) {
-        this.isLoading = true;
-
-        try {
-            yield this.repository.addNewTodoItem(newItem);
-            this.closeModal();
-        } catch (e) {
-            this.error = e.toString();
-        } finally {
-            this.isLoading = false;
-        }
+    addNewItemAsync = async (newItem: ITodoItem) => {
+        const createdItem = await this.requester.addItem(newItem);
+        this.repository.addTodoItem(createdItem);
+        getModal(ADD_NEW_TODO_ITEM).close();
     };
 
-    closeModal = (): void => {
-        this.isModalOpen = false;
-    };
-
-    openModal = (): void => {
-        this.isModalOpen = true;
-    };
+    addNewItem = this.async(this.addNewItemAsync);
 }

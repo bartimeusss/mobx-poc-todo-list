@@ -1,25 +1,20 @@
-import { ILoadTodoList } from './ILoadTodoList';
-import { ILoadTodoListRepository } from '../../repositories/ILoadTodoListRepository';
+import { ILoadTodoList } from '../../ports/in/ILoadTodoList';
+import { ILoadTodoListRequester } from '../../ports/out/ILoadTodoListRequester';
+import { ITodoListRepository } from '../../ports/out/ITodoListRepository';
+import { AsyncUseCase } from '../../../../../common/async-operation/AsyncUseCase';
 
-export abstract class LoadTodoList implements ILoadTodoList {
-    isLoading = false;
-    error: string | undefined = undefined;
-
+export class LoadTodoList extends AsyncUseCase implements ILoadTodoList {
     constructor(
-        private repository: ILoadTodoListRepository
-    ) {}
-
-    abstract loadTodoList(): void;
-
-    *loadTodoListImpl() {
-        this.isLoading = true;
-
-        try {
-            yield this.repository.loadTodoList();
-        } catch (e) {
-            this.error = e.toString();
-        } finally {
-            this.isLoading = false;
-        }
+        private repository: ITodoListRepository,
+        private apiAdapter: ILoadTodoListRequester
+    ) {
+        super();
     }
+
+    loadTodoListAsync = async () => {
+        const todoItems = await this.apiAdapter.load();
+        this.repository.saveTodoList(todoItems);
+    };
+
+    loadTodoList = this.async(this.loadTodoListAsync);
 }

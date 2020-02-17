@@ -4,33 +4,32 @@ import { observer } from 'mobx-react';
 import { useFormik } from 'formik';
 
 import { EMPTY_TODO_ITEM } from '../../constants';
-import { TodoItemEntity } from '../../../../../entities/todo/TodoItemEntity';
-import { useAddNewTodoItem } from '../../context';
+import { useAddNewTodoItem, useAddNewTodoItemModal } from '../../context';
+import { ITodoItem } from '../../../bll/models/ITodoItem';
 
 const TodoAddNewItemFormComponent: React.FC = () => {
     const {
         isLoading,
         addNewItem,
-        isModalOpen,
-        openModal,
-        closeModal
     } = useAddNewTodoItem();
+
+    const modal = useAddNewTodoItemModal();
 
     const {
         handleSubmit,
         handleChange,
         values,
-    } = useFormik<TodoItemEntity>({
+    } = useFormik<ITodoItem>({
         initialValues: EMPTY_TODO_ITEM,
         onSubmit: addNewItem
     });
 
     return (
         <>
-            <Button onClick={openModal}>Add new item</Button>
+            <Button onClick={modal.open}>Add new item</Button>
             <Modal
-                visible={isModalOpen}
-                onCancel={closeModal}
+                visible={modal.isOpen}
+                onCancel={modal.close}
                 okButtonProps={{
                     htmlType: 'submit',
                     formTarget: 'form'

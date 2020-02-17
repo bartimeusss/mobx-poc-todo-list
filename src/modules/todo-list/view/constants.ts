@@ -1,7 +1,7 @@
-import { TodoItemEntity } from '../../../entities/todo/TodoItemEntity';
 import { TodoItemStatus } from '../bll/models/TodoItemStatus';
+import { ITodoItem } from '../bll/models/ITodoItem';
 
-export const EMPTY_TODO_ITEM: TodoItemEntity = {
+export const EMPTY_TODO_ITEM: ITodoItem = {
     id: '',
     name: '',
     description: '',

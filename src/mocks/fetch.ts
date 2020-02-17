@@ -1,12 +1,10 @@
 import uuid from 'uuid/v4';
 
-import {
-    ITodoItemDTOCreateOrUpdate,
-    ITodoItemDTOView,
-} from '../entities/todo/types';
 import { TodoItemStatus } from '../modules/todo-list/bll/models/TodoItemStatus';
+import { ITodoItemViewDTO } from '../entities/todo/api/dto/ITodoItemViewDTO';
+import { ITodoItemCreateDTO } from '../entities/todo/api/dto/ITodoItemCreateDTO';
 
-const mock: ITodoItemDTOView[] = [
+const mock: ITodoItemViewDTO[] = [
     {
         id: uuid(),
         item_name: 'Item1',
@@ -34,9 +32,9 @@ export const performRequest = <TRequest, TResponse>(url: string, body?: TRequest
         }, 2000);
     }));
 
-export const loadItems = (): ITodoItemDTOView[] => mock;
+export const loadItems = (): ITodoItemViewDTO[] => mock;
 
-export const addItem = (newItem: ITodoItemDTOCreateOrUpdate): ITodoItemDTOView => ({
+export const addItem = (newItem: ITodoItemCreateDTO): ITodoItemViewDTO => ({
     id: uuid(),
     item_name: newItem.item_name,
     item_description: newItem.item_description,
@@ -46,7 +44,7 @@ export const addItem = (newItem: ITodoItemDTOCreateOrUpdate): ITodoItemDTOView =
 export const getResponse = (url: string, body?: any): any => {
     switch (url) {
         case 'load': return loadItems();
-        case 'create': return addItem(body as ITodoItemDTOCreateOrUpdate);
+        case 'create': return addItem(body as ITodoItemCreateDTO);
         default: throw Error('404 NotFound');
     }
 };

@@ -1,24 +1,31 @@
-import { IFilterTodoListByStatus } from './IFilterTodoListByStatus';
+import { IFilterTodoListByStatus } from '../../ports/in/IFilterTodoListByStatus';
 import { TodoItemStatus } from '../../models/TodoItemStatus';
 import { ITodoItem } from '../../models/ITodoItem';
-import { IReadTodoListRepository } from '../../repositories/IReadTodoListRepository';
+import { ITodoStatusFilterRepository } from '../../ports/out/ITodoStatusFilterRepository';
+import { ITodoListRepository } from '../../ports/out/ITodoListRepository';
 
-export abstract class FilterTodoListByStatus implements IFilterTodoListByStatus {
-    filter: TodoItemStatus | undefined = undefined;
-
+export class FilterTodoListByStatus implements IFilterTodoListByStatus {
     constructor(
-        private repository: IReadTodoListRepository
+        private todoListRepository: ITodoListRepository,
+        private todoStatusFilterRepository: ITodoStatusFilterRepository,
     ) {}
 
     get filteredTodoList(): ITodoItem[] {
-        if (this.filter === undefined) {
-            return this.repository.todoList;
+        const { todoList } = this.todoListRepository;
+        const { filter } = this.todoStatusFilterRepository;
+
+        if (filter === undefined) {
+            return todoList;
         }
 
-        return this.repository.todoList.filter(it => it.status === this.filter);
+        return todoList.filter(it => it.status === filter);
     }
 
     setFilter = (newStatus: TodoItemStatus | undefined): void => {
-        this.filter = newStatus;
+        this.todoStatusFilterRepository.setFilter(newStatus);
+    };
+
+    get filter() {
+        return this.todoStatusFilterRepository.filter;
     }
 }
