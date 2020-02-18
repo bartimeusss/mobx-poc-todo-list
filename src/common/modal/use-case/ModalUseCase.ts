@@ -1,10 +1,10 @@
 import { IModalRepository } from './IModalRepository';
-import { IModalRepositoryFactory } from './IModalRepositoryFactory';
+import { IModalUseCase } from './IModalUseCase';
 
-export class ModalUseCase {
-    private repository: IModalRepository = ModalUseCase.repositoryFactory.create();
+export class ModalUseCase implements IModalUseCase {
+    private repository: IModalRepository = ModalUseCase.repositoryFactory();
 
-    static repositoryFactory: IModalRepositoryFactory;
+    static repositoryFactory: () => IModalRepository;
 
     get isOpen(): boolean {
         return this.repository.isOpen;

@@ -2,10 +2,11 @@ import { Select } from 'antd';
 import React from 'react';
 
 import './styles.css';
-import { useFilterTodoListByStatus } from '../../context';
 import { TodoItemStatus } from '../../../../models/TodoItemStatus';
+import { connector } from '../../connect';
+import { IPropsTodoListFilter } from './IPropsTodoListFilter';
 
-export const TodoListFilter: React.FC = () => {
+export const TodoListFilterComponent: React.FC<IPropsTodoListFilter> = ({ useFilterTodoListByStatus }) => {
     const { setFilter } = useFilterTodoListByStatus();
 
     return (
@@ -16,7 +17,7 @@ export const TodoListFilter: React.FC = () => {
                 defaultActiveFirstOption
                 onChange={setFilter}
             >
-                <Select.Option key={"asdad"} value={undefined}>All</Select.Option>
+                <Select.Option key={"asd"} value={undefined}>All</Select.Option>
                 {
                     Object.keys(TodoItemStatus).map(status =>
                         <Select.Option key={status} value={status}>{status}</Select.Option>
@@ -26,3 +27,5 @@ export const TodoListFilter: React.FC = () => {
         </div>
     );
 };
+
+export const TodoListFilter = connector.connect(TodoListFilterComponent, 'useFilterTodoListByStatus');

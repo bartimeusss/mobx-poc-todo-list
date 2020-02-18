@@ -1,10 +1,9 @@
 import { IAsyncOperationRepository } from './IAsyncOperationRepository';
-import { IAsyncOperationRepositoryFactory } from './IAsyncOperationRepositoryFactory';
 
 export abstract class AsyncUseCase {
-    private operationRepository: IAsyncOperationRepository = AsyncUseCase.repositoryFactory.create();
+    private operationRepository: IAsyncOperationRepository = AsyncUseCase.repositoryFactory();
 
-    static repositoryFactory: IAsyncOperationRepositoryFactory;
+    static repositoryFactory: () => IAsyncOperationRepository;
 
     get isLoading() {
         return this.operationRepository.isLoading;

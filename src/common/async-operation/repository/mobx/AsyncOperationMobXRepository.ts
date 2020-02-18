@@ -1,4 +1,4 @@
-import { IAsyncOperationRepository } from '../use-case/IAsyncOperationRepository';
+import { IAsyncOperationRepository } from '../../use-case/IAsyncOperationRepository';
 import { action, observable } from 'mobx';
 
 export class AsyncOperationMobXRepository implements IAsyncOperationRepository {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Modal, Spin } from 'antd';
-import { observer } from 'mobx-react';
 import { useFormik } from 'formik';
 
 import { EMPTY_TODO_ITEM } from '../../constants';
-import { useAddNewTodoItem } from '../../context';
 import { ITodoItem } from '../../../../models/ITodoItem';
+import { IPropsTodoAddNewItem } from './IPropsTodoAddNewItem';
+import { connector } from '../../connect';
 
-const TodoAddNewItemFormComponent: React.FC = () => {
+const TodoAddNewItemFormComponent: React.FC<IPropsTodoAddNewItem> = ({ useAddNewTodoItem }) => {
     const {
         isLoading,
         addNewItem,
@@ -66,4 +66,4 @@ const TodoAddNewItemFormComponent: React.FC = () => {
     )
 };
 
-export const TodoAddNewItemForm = observer(TodoAddNewItemFormComponent);
+export const TodoAddNewItemForm = connector.connect(TodoAddNewItemFormComponent, 'useAddNewTodoItem');

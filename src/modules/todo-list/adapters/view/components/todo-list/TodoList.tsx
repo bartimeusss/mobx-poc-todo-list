@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { Spin } from 'antd';
-import { observer } from 'mobx-react';
 
 import { TodoItem } from '../todo-item/TodoItem';
 import { TodoListFilter } from '../todo-list-filter/TodoListFilter';
 import { TodoAddNewItemForm } from '../todo-add-new-item-form/TodoAddNewItem';
-import { useFilterTodoListByStatus, useLoadTodoList } from '../../context';
+import { IPropsTodoList } from './IPropsTodoList';
+import { connector } from '../../connect';
 
-const TodoListComponent: React.FC = () => {
+const TodoListComponent: React.FC<IPropsTodoList> = ({ useFilterTodoListByStatus, useLoadTodoList }) => {
     const { loadTodoList, isLoading } = useLoadTodoList();
     const { filteredTodoList } = useFilterTodoListByStatus();
 
-    useEffect(loadTodoList, []);
+    useEffect(() => { loadTodoList() }, []);
 
     if (isLoading) {
         return (<Spin />);
@@ -30,4 +30,4 @@ const TodoListComponent: React.FC = () => {
     );
 };
 
-export const TodoList = observer(TodoListComponent);
+export const TodoList = connector.connect(TodoListComponent, 'useFilterTodoListByStatus', 'useLoadTodoList');

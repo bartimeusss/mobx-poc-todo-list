@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { TodoProvider, todoUseCases } from './context';
 import { TodoList } from './components/todo-list/TodoList';
+import { connector } from './connect';
 
-export const TodoListModule = () => (
-    <TodoProvider value={todoUseCases}>
+export const TodoListModule: React.FC = () => (
+    <connector.Provider>
         <TodoList />
-    </TodoProvider>
+    </connector.Provider>
 );

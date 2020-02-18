@@ -3,8 +3,9 @@ import React from 'react';
 import './styles.css';
 import { IPropsTodoItem } from './types';
 import { TodoStatus } from '../todo-item-status/TodoStatus';
+import { connector } from '../../connect';
 
-export const TodoItem: React.FC<IPropsTodoItem> = ({ todoItem }) => (
+export const TodoItemComponent: React.FC<IPropsTodoItem> = ({ todoItem }) => (
     <div className="todo-item">
         <div className="todo-item_header">
             <TodoStatus status={todoItem.status} />
@@ -13,3 +14,5 @@ export const TodoItem: React.FC<IPropsTodoItem> = ({ todoItem }) => (
         <p className="todo-item_description">{todoItem.description}</p>
     </div>
 );
+
+export const TodoItem = connector.connect(TodoItemComponent);

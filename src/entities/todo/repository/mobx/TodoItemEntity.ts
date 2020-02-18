@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
-import { ITodoItem } from '../../../modules/todo-list/models/ITodoItem';
-import { TodoItemStatus } from '../../../modules/todo-list/models/TodoItemStatus';
+import { ITodoItem } from '../../../../modules/todo-list/models/ITodoItem';
+import { TodoItemStatus } from '../../../../modules/todo-list/models/TodoItemStatus';
 
 export class TodoItemEntity implements ITodoItem {
     @observable id: string;
