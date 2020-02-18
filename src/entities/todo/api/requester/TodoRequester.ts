@@ -1,14 +1,14 @@
-import { ILoadTodoListRequester } from '../../../../modules/todo-list/bll/ports/out/ILoadTodoListRequester';
-import { ITodoItem } from '../../../../modules/todo-list/bll/models/ITodoItem';
+import { ILoadTodoListRequester } from '../../../../modules/todo-list/ports/out/ILoadTodoListRequester';
+import { ITodoItem } from '../../../../modules/todo-list/models/ITodoItem';
 import { performRequest } from '../../../../mocks/fetch';
-import { IAddTodoItemRequester } from '../../../../modules/todo-list/bll/ports/out/IAddTodoItemRequester';
-import { ITodoApiAdapter } from './ITodoApiAdapter';
+import { IAddTodoItemRequester } from '../../../../modules/todo-list/ports/out/IAddTodoItemRequester';
+import { ITodoApiMapper } from './ITodoApiMapper';
 import { ITodoItemViewDTO } from '../dto/ITodoItemViewDTO';
 import { ITodoItemCreateDTO } from '../dto/ITodoItemCreateDTO';
 
 export class TodoRequester implements ILoadTodoListRequester, IAddTodoItemRequester {
     constructor(
-        private adapter: ITodoApiAdapter
+        private adapter: ITodoApiMapper
     ) {}
 
     load = async (): Promise<ITodoItem[]> => {

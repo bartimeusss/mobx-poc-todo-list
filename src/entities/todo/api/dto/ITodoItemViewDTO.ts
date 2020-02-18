@@ -1,4 +1,4 @@
-import { TodoItemStatus } from '../../../../modules/todo-list/bll/models/TodoItemStatus';
+import { TodoItemStatus } from '../../../../modules/todo-list/models/TodoItemStatus';
 
 export interface ITodoItemViewDTO {
     id: string;

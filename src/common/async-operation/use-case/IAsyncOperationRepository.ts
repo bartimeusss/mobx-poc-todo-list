@@ -1,8 +1,8 @@
-import { IAsyncOperationData } from './IAsyncOperationData';
+export type IAsyncOperationRepository = Readonly<{
+    isLoading: boolean;
+    error: string | undefined;
 
-export interface IAsyncOperationRepository {
-    data: IAsyncOperationData;
-
-    setIsLoading(value: boolean): void;
-    setError(value: string | undefined): void;
-}
+    startLoading(): void;
+    finishLoading(): void;
+    failLoading(e: Error): void;
+}>;

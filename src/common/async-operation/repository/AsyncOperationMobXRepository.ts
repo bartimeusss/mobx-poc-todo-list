@@ -3,25 +3,25 @@ import { action, observable } from 'mobx';
 
 export class AsyncOperationMobXRepository implements IAsyncOperationRepository {
     @observable
-    private error: string | undefined;
+    error: string | undefined;
 
     @observable
-    private isLoading: boolean = false;
-
-    get data() {
-        return {
-            isLoading: this.isLoading,
-            error: this.error,
-        }
-    }
+    isLoading: boolean = false;
 
     @action
-    setError = (value: string | undefined): void => {
-        this.error = value;
+    startLoading = (): void => {
+        this.error = undefined;
+        this.isLoading = true;
     };
 
     @action
-    setIsLoading = (value: boolean): void => {
-        this.isLoading = value;
-    }
+    finishLoading = (): void => {
+        this.isLoading = false;
+    };
+
+    @action
+    failLoading = (e: Error): void => {
+        this.isLoading = false;
+        this.error = e.message;
+    };
 }

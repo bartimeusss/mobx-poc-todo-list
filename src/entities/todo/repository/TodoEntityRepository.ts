@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 
 import { TodoItemEntity } from './TodoItemEntity';
-import { ITodoListRepository } from '../../../modules/todo-list/bll/ports/out/ITodoListRepository';
+import { ITodoListRepository } from '../../../modules/todo-list/ports/out/ITodoListRepository';
 
 export class TodoEntityRepository implements ITodoListRepository {
     @observable

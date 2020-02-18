@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4';
 
-import { TodoItemStatus } from '../modules/todo-list/bll/models/TodoItemStatus';
+import { TodoItemStatus } from '../modules/todo-list/models/TodoItemStatus';
 import { ITodoItemViewDTO } from '../entities/todo/api/dto/ITodoItemViewDTO';
 import { ITodoItemCreateDTO } from '../entities/todo/api/dto/ITodoItemCreateDTO';
 
